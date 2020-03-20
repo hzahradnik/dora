@@ -1,0 +1,17 @@
+fun main() {
+  arrayEmpty[Int]();
+  // assert(0 == len(arrayEmpty[Int]()));
+  // let array = createArray();
+  // assert(getLength(array) == 4);
+  // setArray(array, 2, 10Y);
+  // assert(array(2) == 10Y);
+}
+
+
+@cannon fun createArray() -> Array[Byte] { return Array[Byte](4); }
+
+@cannon fun getLength(a: Array[Byte]) -> Int { return a.length(); }
+
+@cannon fun getArray(arr: Array[Byte], idx: Int) -> Byte { return arr(idx); }
+
+@cannon fun setArray(arr: Array[Byte], idx: Int, value: Byte) { arr(idx) = value; }

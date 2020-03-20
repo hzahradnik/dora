@@ -8,7 +8,7 @@ use dora_parser::lexer::token::{FloatSuffix, IntSuffix};
 
 use crate::bytecode::{BytecodeFunction, BytecodeType, BytecodeWriter, Label, Register};
 use crate::semck::expr_block_always_returns;
-use crate::semck::specialize::{specialize_class_ty, specialize_type};
+use crate::semck::specialize::{specialize_class_ty, specialize_for_call_type, specialize_type};
 use crate::size::InstanceSize;
 use crate::ty::{BuiltinType, TypeList};
 use crate::vm::{
@@ -411,7 +411,11 @@ impl<'a, 'ast> AstBytecodeGen<'a, 'ast> {
         }
 
         match *call_type {
-            CallType::CtorNew(ty, _) => {
+            CallType::CtorNew(_ty, _) => {
+                let ty = fct.params_with_self()[0];
+                let ty = specialize_for_call_type(&call_type, ty, self.vm);
+                let ty = self.specialize_type(ty);
+
                 let cls_id = specialize_class_ty(self.vm, ty);
 
                 let cls = self.vm.class_defs.idx(cls_id);

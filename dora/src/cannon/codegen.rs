@@ -1384,7 +1384,19 @@ where
         self.emit_invoke_arguments(start_reg, num);
 
         // handling of class and function type parameters has to implemented
-        let cls_type_params = fct_def.cls_type_params.clone();
+        for i in fct_def.cls_type_params.iter() {
+            println!("clsparam: {:?}", i);
+        }
+        for i in fct_def.fct_type_params.iter() {
+            println!("fctparam: {:?}", i);
+        }
+        let cls_type_params = TypeList::with(
+            fct_def
+                .cls_type_params
+                .iter()
+                .map(|ty| self.specialize_type(ty))
+                .collect::<Vec<_>>(),
+        );
 
         let name = fct.full_name(self.vm);
         self.asm.emit_comment(format!("call virtual {}", name));
@@ -1455,8 +1467,26 @@ where
 
         self.emit_invoke_arguments(start_reg, num);
 
-        let cls_type_params = fct_def.cls_type_params.clone();
-        let fct_type_params = fct_def.fct_type_params.clone();
+        for i in fct_def.cls_type_params.iter() {
+            println!("clsparam: {:?}", i);
+        }
+        for i in fct_def.fct_type_params.iter() {
+            println!("fctparam: {:?}", i);
+        }
+        let cls_type_params = TypeList::with(
+            fct_def
+                .cls_type_params
+                .iter()
+                .map(|ty| self.specialize_type(ty))
+                .collect::<Vec<_>>(),
+        );
+        let fct_type_params = TypeList::with(
+            fct_def
+                .fct_type_params
+                .iter()
+                .map(|ty| self.specialize_type(ty))
+                .collect::<Vec<_>>(),
+        );
 
         let name = fct.full_name(self.vm);
         self.asm.emit_comment(format!("call direct {}", name));
@@ -1517,8 +1547,26 @@ where
 
         self.emit_invoke_arguments(start_reg, num);
 
-        let cls_type_params = fct_def.cls_type_params.clone();
-        let fct_type_params = fct_def.fct_type_params.clone();
+        for i in fct_def.cls_type_params.iter() {
+            println!("clsparam: {:?}", i);
+        }
+        for i in fct_def.fct_type_params.iter() {
+            println!("fctparam: {:?}", i);
+        }
+        let cls_type_params = TypeList::with(
+            fct_def
+                .cls_type_params
+                .iter()
+                .map(|ty| self.specialize_type(ty))
+                .collect::<Vec<_>>(),
+        );
+        let fct_type_params = TypeList::with(
+            fct_def
+                .fct_type_params
+                .iter()
+                .map(|ty| self.specialize_type(ty))
+                .collect::<Vec<_>>(),
+        );
 
         let name = fct.full_name(self.vm);
         self.asm.emit_comment(format!("call direct {}", name));

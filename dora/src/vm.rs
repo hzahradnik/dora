@@ -376,6 +376,12 @@ impl<'ast> VM<'ast> {
         }
     }
 
+    pub fn dump_class_defs(&self) {
+        for i in self.class_defs.iter() {
+            println!("{:?}", i);
+        }
+    }
+
     pub fn cls_def_by_name(&self, name: &'static str) -> ClassDefId {
         use crate::semck::specialize::specialize_class_id;
 
